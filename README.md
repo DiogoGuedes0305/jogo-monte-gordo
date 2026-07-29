@@ -1,6 +1,6 @@
 # Jogo Monte Gordo
 
-Jogo criado para o Monte Gordo, com frontend em Firebase Hosting, backend em Google Apps Script e Cloudflare Worker de apoio.
+Jogo criado para jogar em Monte Gordo (E postreormente adaptado para acomodar mais locais), com frontend em Firebase Hosting, backend em Google Apps Script e Cloudflare Worker de apoio.
 
 ## Estrutura
 
