@@ -1,0 +1,12 @@
+{
+  "locations": {
+    "casino": { "name": "Casino de Monte Gordo", "points": 500, "icon": "icon-casino", "teamId": "", "conqueredAt": null },
+    "praia-mg": { "name": "Praia de Monte Gordo", "points": 300, "icon": "icon-umbrella", "teamId": "", "conqueredAt": null },
+    "adao-eva": { "name": "Praia Adão e Eva", "points": 400, "icon": "icon-wave", "teamId": "", "conqueredAt": null },
+    "pinhal": { "name": "Pinhal (Mata das Dunas)", "points": 350, "icon": "icon-pine", "teamId": "", "conqueredAt": null },
+    "sushi": { "name": "Sushi", "points": 250, "icon": "icon-sushi", "teamId": "", "conqueredAt": null },
+    "tenis": { "name": "Campo de Ténis", "points": 300, "icon": "icon-tennis", "teamId": "", "conqueredAt": null },
+    "campismo": { "name": "Parque de Campismo", "points": 350, "icon": "icon-tent", "teamId": "", "conqueredAt": null },
+    "prime": { "name": "Prime", "points": 300, "icon": "icon-glass", "teamId": "", "conqueredAt": null }
+  }
+}

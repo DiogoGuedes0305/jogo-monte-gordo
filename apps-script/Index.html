@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta charset="utf-8">
+  <style>
+    :root {
+      --bg: #E9E1CE;
+      --surface: #F4EEDF;
+      --surface-2: #DED2B4;
+      --text: #21201B;
+      --text-muted: #5B564A;
+      --border: rgba(33, 32, 27, 0.16);
+      --border-strong: rgba(33, 32, 27, 0.3);
+      --accent: #A8792A;
+      --accent-ink: #FBF6EA;
+      --free: #6B7278;
+      --danger: #B14A34;
+      --shadow: 0 1px 0 rgba(33, 32, 27, 0.08);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0E2233;
+        --surface: #15304A;
+        --surface-2: #0B1B2A;
+        --text: #EDE7D8;
+        --text-muted: #A9B2B9;
+        --border: rgba(237, 231, 216, 0.14);
+        --border-strong: rgba(237, 231, 216, 0.28);
+        --accent: #E3B564;
+        --accent-ink: #1B1204;
+        --free: #93999E;
+        --danger: #E17A5F;
+        --shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #0E2233; --surface: #15304A; --surface-2: #0B1B2A;
+      --text: #EDE7D8; --text-muted: #A9B2B9;
+      --border: rgba(237, 231, 216, 0.14); --border-strong: rgba(237, 231, 216, 0.28);
+      --accent: #E3B564; --accent-ink: #1B1204; --free: #93999E; --danger: #E17A5F;
+      --shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+    }
+    :root[data-theme="light"] {
+      --bg: #E9E1CE; --surface: #F4EEDF; --surface-2: #DED2B4;
+      --text: #21201B; --text-muted: #5B564A;
+      --border: rgba(33, 32, 27, 0.16); --border-strong: rgba(33, 32, 27, 0.3);
+      --accent: #A8792A; --accent-ink: #FBF6EA; --free: #6B7278; --danger: #B14A34;
+      --shadow: 0 1px 0 rgba(33, 32, 27, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .page { max-width: 760px; margin: 0 auto; padding: 0 0 4rem; }
+
+    .masthead {
+      background: radial-gradient(ellipse 140% 100% at 50% -20%, rgba(255,255,255,0.08), transparent 60%), var(--surface-2);
+      border-bottom: 1px solid var(--border);
+      padding: 2rem 1.25rem 1.25rem;
+    }
+    .eyebrow {
+      display: flex; align-items: center; gap: 0.5rem;
+      font: 700 0.72rem/1 Georgia, "Rockwell", serif;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted);
+      margin: 0 0 0.75rem;
+    }
+    .eyebrow .dot {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--danger);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--danger) 25%, transparent);
+    }
+    @media (prefers-reduced-motion: no-preference) { .eyebrow .dot { animation: pulse 2.4s ease-in-out infinite; } }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+
+    h1 {
+      font: 700 clamp(1.7rem, 7vw, 2.5rem)/1.05 Georgia, "Rockwell", "Roboto Slab", serif;
+      text-transform: uppercase; letter-spacing: 0.01em; margin: 0 0 0.35rem;
+    }
+    .subtitle { margin: 0; max-width: 44ch; color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; }
+
+    .view-switch {
+      display: inline-flex; margin-top: 1.1rem; border: 1px solid var(--border);
+      border-radius: 999px; padding: 3px; background: var(--surface);
+    }
+    .view-switch button {
+      border: none; background: none; padding: 0.4rem 0.95rem; border-radius: 999px;
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase;
+      color: var(--text-muted); cursor: pointer;
+    }
+    .view-switch button[aria-selected="true"] { background: var(--accent); color: var(--accent-ink); }
+
+    .section { padding: 1.5rem 1.25rem 0; }
+    .section-title {
+      font: 700 0.78rem/1 Georgia, "Rockwell", serif; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-muted); margin: 0 0 0.75rem;
+    }
+
+    .progress-wrap { padding: 1.1rem 1.25rem 0; }
+    .progress-label {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 0.4rem; font-weight: 600;
+    }
+    .progress-label .num { font-family: "SF Mono", Consolas, "Roboto Mono", monospace; font-variant-numeric: tabular-nums; color: var(--text); letter-spacing: 0; }
+    .progress-bar { display: flex; height: 10px; width: 100%; border-radius: 6px; overflow: hidden; background: var(--border); }
+    .progress-seg { height: 100%; transition: width 0.4s ease; }
+    @media (prefers-reduced-motion: reduce) { .progress-seg { transition: none; } }
+
+    .scoreboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.7rem; }
+    .team-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 0.85rem 0.9rem; box-shadow: var(--shadow); position: relative; }
+    .team-card .rank { position: absolute; top: 0.7rem; right: 0.8rem; font: 700 0.72rem/1 "SF Mono", Consolas, monospace; color: var(--text-muted); }
+    .team-flag { width: 10px; height: 10px; border-radius: 3px; display: inline-block; margin-bottom: 0.5rem; }
+    .team-name { font-weight: 700; font-size: 0.92rem; margin: 0 0 0.3rem; line-height: 1.25; padding-right: 1.6rem; }
+    .team-points { font-family: "SF Mono", Consolas, "Roboto Mono", monospace; font-variant-numeric: tabular-nums; font-weight: 700; font-size: 1.3rem; letter-spacing: -0.01em; }
+    .team-points span { font-size: 0.68rem; font-weight: 600; color: var(--text-muted); margin-left: 0.3rem; font-family: -apple-system, sans-serif; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0.85rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; }
+    .card-stripe { height: 4px; width: 100%; background: repeating-linear-gradient(45deg, var(--border-strong), var(--border-strong) 4px, transparent 4px, transparent 8px); }
+    .card-stripe[data-owned="true"] { background: var(--stripe-color, var(--accent)); }
+    .card-body { padding: 0.95rem 1rem 1rem; display: flex; flex-direction: column; gap: 0.6rem; flex: 1; }
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.6rem; }
+    .card-icon { width: 34px; height: 34px; border-radius: 9px; background: var(--bg); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); flex-shrink: 0; }
+    .card-icon svg { width: 19px; height: 19px; }
+    .points-badge { font-family: "SF Mono", Consolas, "Roboto Mono", monospace; font-variant-numeric: tabular-nums; font-size: 0.78rem; font-weight: 700; background: var(--bg); border: 1px solid var(--border); border-radius: 999px; padding: 0.25rem 0.55rem; white-space: nowrap; }
+    .card-name { font: 700 1.02rem/1.25 Georgia, "Rockwell", serif; margin: 0; }
+    .status-pill { align-self: flex-start; font-size: 0.76rem; font-weight: 700; letter-spacing: 0.02em; padding: 0.22rem 0.6rem; border-radius: 999px; color: var(--pill-ink, var(--text)); background: var(--pill-bg, var(--border)); }
+    .card-actions { margin-top: auto; display: flex; flex-direction: column; gap: 0.5rem; }
+
+    button { font-family: inherit; cursor: pointer; }
+    button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .btn-conquer { background: var(--accent); color: var(--accent-ink); border: none; border-radius: 8px; padding: 0.55rem 0.8rem; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+    .btn-conquer:hover { filter: brightness(1.06); }
+    .btn-conquer:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-reassign, .btn-remove { background: none; border: none; color: var(--text-muted); font-size: 0.78rem; text-decoration: underline; text-underline-offset: 2px; padding: 0.2rem 0; align-self: flex-start; }
+    .btn-remove { color: var(--danger); }
+
+    .picker { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .chip { display: flex; align-items: center; gap: 0.35rem; border: 1px solid var(--border); background: var(--bg); border-radius: 999px; padding: 0.32rem 0.65rem 0.32rem 0.4rem; font-size: 0.78rem; font-weight: 600; color: var(--text); }
+    .chip:hover { border-color: var(--border-strong); }
+    .chip .swatch { width: 9px; height: 9px; border-radius: 50%; }
+
+    .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.1rem 1.1rem; box-shadow: var(--shadow); margin-bottom: 1rem; }
+    .panel h3 { font: 700 0.95rem/1 Georgia, "Rockwell", serif; margin: 0 0 0.9rem; }
+    .field-row { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: flex-end; }
+    .field { display: flex; flex-direction: column; gap: 0.3rem; flex: 1; min-width: 120px; }
+    .field label { font-size: 0.74rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+    .field input[type="text"], .field input[type="number"], .field select, .field textarea {
+      border: 1px solid var(--border-strong); background: var(--bg); color: var(--text);
+      border-radius: 8px; padding: 0.5rem 0.6rem; font-size: 0.88rem; font-family: inherit;
+    }
+    .field input[type="color"] { width: 100%; height: 2.3rem; border: 1px solid var(--border-strong); border-radius: 8px; padding: 2px; background: var(--bg); }
+    .field textarea { resize: vertical; min-height: 2.4rem; }
+    .btn-add { background: var(--accent); color: var(--accent-ink); border: none; border-radius: 8px; padding: 0.55rem 1rem; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; }
+    .btn-add:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .entry-list { list-style: none; margin: 0.9rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+    .entry-row { display: flex; align-items: center; gap: 0.6rem; padding: 0.5rem 0.6rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); }
+    .entry-row .entry-main { flex: 1; min-width: 0; }
+    .entry-row .entry-title { font-weight: 700; font-size: 0.88rem; }
+    .entry-row .entry-sub { font-size: 0.76rem; color: var(--text-muted); }
+    .empty-state { font-size: 0.85rem; color: var(--text-muted); padding: 0.4rem 0; }
+
+    .toast {
+      position: fixed; left: 50%; bottom: 1.2rem; transform: translateX(-50%) translateY(120%);
+      background: var(--danger); color: #fff; padding: 0.6rem 1rem; border-radius: 8px;
+      font-size: 0.85rem; box-shadow: 0 4px 16px rgba(0,0,0,0.25); transition: transform 0.25s ease;
+      max-width: 90vw; text-align: center; z-index: 20;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+    @media (prefers-reduced-motion: reduce) { .toast { transition: none; } }
+
+    footer { padding: 2rem 1.25rem 0; color: var(--text-muted); font-size: 0.78rem; text-align: center; }
+    [hidden] { display: none !important; }
+    body.busy { opacity: 0.65; pointer-events: none; transition: opacity 0.15s ease; }
+    @media (prefers-reduced-motion: reduce) { body.busy { transition: none; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="masthead">
+      <p class="eyebrow"><span class="dot"></span> Sotavento Algarvio</p>
+      <h1>Battle for Monte Gordo</h1>
+      <p class="subtitle">Conquistem territórios, completem desafios, somem pontos.</p>
+      <div class="view-switch" role="tablist">
+        <button type="button" id="tab-jogo" role="tab" aria-selected="true">Jogo</button>
+        <button type="button" id="tab-gestao" role="tab" aria-selected="false">Gestão</button>
+      </div>
+    </div>
+
+    <div id="view-jogo">
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Território conquistado</span><span class="num" id="progress-num">—</span></div>
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+      <div class="section">
+        <p class="section-title">Placar</p>
+        <div class="scoreboard" id="scoreboard"></div>
+      </div>
+      <div class="section">
+        <p class="section-title">Territórios</p>
+        <div class="grid" id="grid"></div>
+      </div>
+    </div>
+
+    <div id="view-gestao" hidden>
+      <div class="section">
+        <p class="section-title">Equipas</p>
+        <div class="panel">
+          <h3>Adicionar equipa</h3>
+          <form id="form-team">
+            <div class="field-row">
+              <div class="field"><label for="team-name">Nome</label><input type="text" id="team-name" required maxlength="60"></div>
+              <div class="field" style="flex: 0 0 90px;"><label for="team-color">Cor</label><input type="color" id="team-color" value="#2B6E6C"></div>
+              <button type="submit" class="btn-add">Adicionar</button>
+            </div>
+          </form>
+          <ul class="entry-list" id="list-teams"></ul>
+        </div>
+      </div>
+
+      <div class="section">
+        <p class="section-title">Locais</p>
+        <div class="panel">
+          <h3>Adicionar local</h3>
+          <form id="form-location">
+            <div class="field-row">
+              <div class="field"><label for="loc-name">Nome</label><input type="text" id="loc-name" required maxlength="60"></div>
+              <div class="field" style="flex: 0 0 90px;"><label for="loc-points">Pontos</label><input type="number" id="loc-points" min="0" step="10" value="100" required></div>
+              <div class="field" style="flex: 0 0 150px;">
+                <label for="loc-icon">Ícone</label>
+                <select id="loc-icon">
+                  <option value="icon-casino">Casino</option>
+                  <option value="icon-umbrella">Guarda-sol</option>
+                  <option value="icon-wave">Onda</option>
+                  <option value="icon-pine">Pinheiro</option>
+                  <option value="icon-sushi">Sushi</option>
+                  <option value="icon-tennis">Ténis</option>
+                  <option value="icon-tent">Tenda</option>
+                  <option value="icon-glass">Copo</option>
+                </select>
+              </div>
+            </div>
+            <div class="field-row" style="margin-top: 0.6rem;"><button type="submit" class="btn-add">Adicionar</button></div>
+          </form>
+          <ul class="entry-list" id="list-locations"></ul>
+        </div>
+      </div>
+
+      <div class="section">
+        <p class="section-title">Desafios</p>
+        <div class="panel">
+          <h3>Adicionar desafio</h3>
+          <form id="form-challenge">
+            <div class="field-row">
+              <div class="field" style="flex: 0 0 160px;"><label for="ch-location">Local</label><select id="ch-location"></select></div>
+              <div class="field"><label for="ch-desc">Desafio</label><textarea id="ch-desc" required maxlength="240"></textarea></div>
+            </div>
+            <div class="field-row" style="margin-top: 0.6rem;"><button type="submit" class="btn-add">Adicionar</button></div>
+          </form>
+          <ul class="entry-list" id="list-challenges"></ul>
+        </div>
+      </div>
+    </div>
+
+    <footer>Battle for Monte Gordo</footer>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <svg style="display:none" aria-hidden="true">
+    <symbol id="icon-casino" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="5" y="5" width="14" height="14" rx="3"/><circle cx="9" cy="9" r="1.1" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/><circle cx="15" cy="15" r="1.1" fill="currentColor" stroke="none"/>
+    </symbol>
+    <symbol id="icon-umbrella" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 13 A8 8 0 0 1 20 13"/><line x1="12" y1="13" x2="12" y2="20"/><line x1="12" y1="20" x2="9" y2="21.3"/>
+    </symbol>
+    <symbol id="icon-wave" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="3,9 6,6 9,9 12,6 15,9 18,6 21,9"/><polyline points="3,16 6,13 9,16 12,13 15,16 18,13 21,16"/>
+    </symbol>
+    <symbol id="icon-pine" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="12,3 7,11 17,11"/><polygon points="12,8 6,16 18,16"/><line x1="12" y1="16" x2="12" y2="20.5"/>
+    </symbol>
+    <symbol id="icon-sushi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="6" y1="4.5" x2="10" y2="19.5"/><line x1="10" y1="4.5" x2="14" y2="19.5"/><circle cx="17.5" cy="14" r="3.2"/><circle cx="17.5" cy="14" r="0.9" fill="currentColor" stroke="none"/>
+    </symbol>
+    <symbol id="icon-tennis" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="8.5" cy="9.5" r="4"/><ellipse cx="17" cy="8" rx="3.1" ry="4"/><line x1="17" y1="12" x2="17" y2="19.5"/>
+    </symbol>
+    <symbol id="icon-tent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="4,19 12,6 20,19"/><line x1="12" y1="6" x2="12" y2="19"/><line x1="2" y1="19" x2="22" y2="19"/>
+    </symbol>
+    <symbol id="icon-glass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="7,5 17,5 12,13"/><line x1="12" y1="13" x2="12" y2="19"/><line x1="8" y1="19" x2="16" y2="19"/><circle cx="15" cy="6.2" r="0.9" fill="currentColor" stroke="none"/>
+    </symbol>
+  </svg>
+
+  <script>
+    var STATE = { locations: [], teams: [], challenges: [] };
+    var openPicker = null;
+    var pollTimer = null;
+    var POLL_MS = 6000;
+    var pollBusy = false;
+    var actionBusy = false;
+
+    function byId(id) { return document.getElementById(id); }
+
+    function showToast(msg) {
+      var t = byId('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(function () { t.classList.remove('show'); }, 3200);
+    }
+
+    function findTeam(id) {
+      return STATE.teams.filter(function (t) { return String(t.ID) === String(id); })[0];
+    }
+
+    function onState(state) {
+      STATE = state;
+      openPicker = null;
+      renderAll();
+    }
+
+    function onError(err) {
+      showToast((err && err.message) ? err.message : 'Ocorreu um erro.');
+    }
+
+    function loadState() {
+      if (pollBusy) return; // já há um pedido a decorrer — não empilhar outro
+      pollBusy = true;
+      google.script.run
+        .withSuccessHandler(function (state) { pollBusy = false; onState(state); })
+        .withFailureHandler(function (err) { pollBusy = false; onError(err); })
+        .getState();
+    }
+
+    // Envolve uma ação de escrita (conquistar, adicionar, remover...) para
+    // impedir duplos cliques e pedidos sobrepostos enquanto o anterior não responde.
+    function runAction(startCall) {
+      if (actionBusy) return;
+      actionBusy = true;
+      document.body.classList.add('busy');
+      startCall(
+        function (state) { actionBusy = false; document.body.classList.remove('busy'); onState(state); },
+        function (err) { actionBusy = false; document.body.classList.remove('busy'); onError(err); }
+      );
+    }
+
+    function renderAll() {
+      renderProgress();
+      renderScoreboard();
+      renderGrid();
+      renderGestao();
+    }
+
+    function totalsByTeam() {
+      var totals = {};
+      STATE.teams.forEach(function (t) { totals[t.ID] = 0; });
+      STATE.locations.forEach(function (l) {
+        if (l.EquipaID && totals.hasOwnProperty(l.EquipaID)) totals[l.EquipaID] += Number(l.Pontos) || 0;
+      });
+      return totals;
+    }
+
+    function renderProgress() {
+      var totalPossible = STATE.locations.reduce(function (s, l) { return s + (Number(l.Pontos) || 0); }, 0);
+      var totals = totalsByTeam();
+      var claimed = Object.keys(totals).reduce(function (s, k) { return s + totals[k]; }, 0);
+      byId('progress-num').textContent = claimed + ' / ' + totalPossible + ' pts';
+      byId('progress-bar').innerHTML = STATE.teams.map(function (t) {
+        var pct = totalPossible ? (totals[t.ID] / totalPossible) * 100 : 0;
+        return '<div class="progress-seg" style="width:' + pct + '%;background:' + t.Cor + '"></div>';
+      }).join('');
+    }
+
+    function renderScoreboard() {
+      var totals = totalsByTeam();
+      var ranked = STATE.teams.map(function (t) {
+        return { id: t.ID, name: t.Nome, color: t.Cor, points: totals[t.ID] || 0 };
+      }).sort(function (a, b) { return b.points - a.points; });
+
+      if (!ranked.length) {
+        byId('scoreboard').innerHTML = '<p class="empty-state">Ainda não há equipas — cria uma no separador Gestão.</p>';
+        return;
+      }
+      byId('scoreboard').innerHTML = ranked.map(function (t, i) {
+        return '<div class="team-card">' +
+          '<span class="rank">#' + (i + 1) + '</span>' +
+          '<span class="team-flag" style="background:' + t.color + '"></span>' +
+          '<p class="team-name">' + escapeHtml(t.name) + '</p>' +
+          '<p class="team-points">' + t.points + '<span>pts</span></p>' +
+        '</div>';
+      }).join('');
+    }
+
+    function statusPill(loc) {
+      if (!loc.EquipaID) return '<span class="status-pill" style="--pill-bg:var(--border);--pill-ink:var(--text-muted)">Livre</span>';
+      var t = findTeam(loc.EquipaID);
+      var name = t ? t.Nome : 'equipa removida';
+      var color = t ? t.Cor : 'var(--free)';
+      return '<span class="status-pill" style="--pill-bg:color-mix(in srgb, ' + color + ' 22%, var(--surface));--pill-ink:' + color + '">Conquistada — ' + escapeHtml(name) + '</span>';
+    }
+
+    function renderGrid() {
+      byId('grid').innerHTML = STATE.locations.map(function (loc) {
+        var owned = !!loc.EquipaID;
+        var ownerTeam = owned ? findTeam(loc.EquipaID) : null;
+        var stripeColor = owned ? (ownerTeam ? ownerTeam.Cor : 'var(--free)') : '';
+        var pickerOpen = openPicker === loc.ID;
+
+        var actions;
+        if (owned) {
+          actions = '<button type="button" class="btn-reassign" data-action="reassign" data-id="' + loc.ID + '">Reatribuir território</button>';
+        } else if (pickerOpen) {
+          if (!STATE.teams.length) {
+            actions = '<p class="empty-state">Cria uma equipa em Gestão primeiro.</p>';
+          } else {
+            actions = '<div class="picker">' + STATE.teams.map(function (t) {
+              return '<button type="button" class="chip" data-action="assign" data-id="' + loc.ID + '" data-team="' + t.ID + '">' +
+                '<span class="swatch" style="background:' + t.Cor + '"></span>' + escapeHtml(t.Nome) + '</button>';
+            }).join('') + '</div>';
+          }
+        } else {
+          actions = '<button type="button" class="btn-conquer" data-action="open" data-id="' + loc.ID + '"' + (STATE.teams.length ? '' : ' disabled') + '>Conquistar</button>';
+        }
+
+        return '<div class="card">' +
+          '<div class="card-stripe" data-owned="' + owned + '" style="--stripe-color:' + stripeColor + '"></div>' +
+          '<div class="card-body">' +
+            '<div class="card-top">' +
+              '<span class="card-icon"><svg><use href="#' + (loc.Icone || 'icon-casino') + '"/></svg></span>' +
+              '<span class="points-badge">' + (loc.Pontos || 0) + ' pts</span>' +
+            '</div>' +
+            '<p class="card-name">' + escapeHtml(loc.Nome) + '</p>' +
+            statusPill(loc) +
+            '<div class="card-actions">' + actions + '</div>' +
+          '</div>' +
+        '</div>';
+      }).join('') || '<p class="empty-state">Ainda não há locais — adiciona um em Gestão.</p>';
+    }
+
+    function renderGestao() {
+      byId('list-teams').innerHTML = STATE.teams.map(function (t) {
+        return '<li class="entry-row">' +
+          '<span class="team-flag" style="background:' + t.Cor + '"></span>' +
+          '<span class="entry-main"><span class="entry-title">' + escapeHtml(t.Nome) + '</span></span>' +
+          '<button type="button" class="btn-remove" data-remove="team" data-id="' + t.ID + '">Remover</button>' +
+        '</li>';
+      }).join('') || '<li class="empty-state">Nenhuma equipa ainda.</li>';
+
+      byId('list-locations').innerHTML = STATE.locations.map(function (l) {
+        return '<li class="entry-row">' +
+          '<span class="card-icon" style="width:26px;height:26px;border-radius:7px;"><svg style="width:14px;height:14px"><use href="#' + (l.Icone || 'icon-casino') + '"/></svg></span>' +
+          '<span class="entry-main"><span class="entry-title">' + escapeHtml(l.Nome) + '</span><br><span class="entry-sub">' + (l.Pontos || 0) + ' pts</span></span>' +
+          '<button type="button" class="btn-remove" data-remove="location" data-id="' + l.ID + '">Remover</button>' +
+        '</li>';
+      }).join('') || '<li class="empty-state">Nenhum local ainda.</li>';
+
+      var locSelect = byId('ch-location');
+      var prevValue = locSelect.value;
+      locSelect.innerHTML = STATE.locations.map(function (l) {
+        return '<option value="' + l.ID + '">' + escapeHtml(l.Nome) + '</option>';
+      }).join('');
+      if (prevValue) locSelect.value = prevValue;
+
+      byId('list-challenges').innerHTML = STATE.challenges.map(function (c) {
+        var loc = STATE.locations.filter(function (l) { return String(l.ID) === String(c.LocalID); })[0];
+        return '<li class="entry-row">' +
+          '<span class="entry-main"><span class="entry-title">' + escapeHtml(loc ? loc.Nome : 'local removido') + '</span><br><span class="entry-sub">' + escapeHtml(c.Descricao) + '</span></span>' +
+          '<button type="button" class="btn-remove" data-remove="challenge" data-id="' + c.ID + '">Remover</button>' +
+        '</li>';
+      }).join('') || '<li class="empty-state">Nenhum desafio ainda.</li>';
+    }
+
+    function escapeHtml(str) {
+      return String(str == null ? '' : str).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+
+    // --- Ações: Jogo ---
+    byId('grid').addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-action]');
+      if (!btn) return;
+      var action = btn.dataset.action, id = btn.dataset.id, team = btn.dataset.team;
+      if (action === 'open') {
+        openPicker = id; renderGrid();
+      } else if (action === 'assign') {
+        runAction(function (ok, fail) {
+          google.script.run.withSuccessHandler(ok).withFailureHandler(fail).conquerLocation(id, team);
+        });
+      } else if (action === 'reassign') {
+        runAction(function (ok, fail) {
+          google.script.run.withSuccessHandler(ok).withFailureHandler(fail).reassignLocation(id);
+        });
+      }
+    });
+
+    // --- Ações: Gestão (remover) ---
+    document.getElementById('view-gestao').addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-remove]');
+      if (!btn) return;
+      var kind = btn.dataset.remove, id = btn.dataset.id;
+      if (kind === 'team') {
+        if (!confirm('Remover esta equipa? Os locais que ela tinha conquistado ficam livres.')) return;
+        runAction(function (ok, fail) {
+          google.script.run.withSuccessHandler(ok).withFailureHandler(fail).removeTeam(id);
+        });
+      } else if (kind === 'location') {
+        if (!confirm('Remover este local? Os desafios associados a ele também são apagados.')) return;
+        runAction(function (ok, fail) {
+          google.script.run.withSuccessHandler(ok).withFailureHandler(fail).removeLocation(id);
+        });
+      } else if (kind === 'challenge') {
+        runAction(function (ok, fail) {
+          google.script.run.withSuccessHandler(ok).withFailureHandler(fail).removeChallenge(id);
+        });
+      }
+    });
+
+    // --- Formulários: Gestão (adicionar) ---
+    byId('form-team').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = byId('team-name').value.trim();
+      var color = byId('team-color').value;
+      if (!name) return;
+      runAction(function (ok, fail) {
+        google.script.run.withSuccessHandler(function (state) { ok(state); byId('team-name').value = ''; }).withFailureHandler(fail).addTeam(name, color);
+      });
+    });
+
+    byId('form-location').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = byId('loc-name').value.trim();
+      var points = byId('loc-points').value;
+      var icon = byId('loc-icon').value;
+      if (!name) return;
+      runAction(function (ok, fail) {
+        google.script.run.withSuccessHandler(function (state) { ok(state); byId('loc-name').value = ''; }).withFailureHandler(fail).addLocation(name, points, icon);
+      });
+    });
+
+    byId('form-challenge').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var locationId = byId('ch-location').value;
+      var desc = byId('ch-desc').value.trim();
+      if (!desc || !locationId) return;
+      runAction(function (ok, fail) {
+        google.script.run.withSuccessHandler(function (state) { ok(state); byId('ch-desc').value = ''; }).withFailureHandler(fail).addChallenge(locationId, desc);
+      });
+    });
+
+    // --- Alternar vistas ---
+    byId('tab-jogo').addEventListener('click', function () { switchView('jogo'); });
+    byId('tab-gestao').addEventListener('click', function () { switchView('gestao'); });
+    function switchView(view) {
+      var isJogo = view === 'jogo';
+      byId('view-jogo').hidden = !isJogo;
+      byId('view-gestao').hidden = isJogo;
+      byId('tab-jogo').setAttribute('aria-selected', String(isJogo));
+      byId('tab-gestao').setAttribute('aria-selected', String(!isJogo));
+    }
+
+    // Pausa o polling quando a página está em segundo plano (telemóvel bloqueado,
+    // trocar de app) para não acumular pedidos enquanto a aba está inativa.
+    function startPolling() {
+      stopPolling();
+      loadState();
+      pollTimer = setInterval(loadState, POLL_MS);
+    }
+    function stopPolling() {
+      if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+    }
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) { stopPolling(); } else { startPolling(); }
+    });
+
+    startPolling();
+  </script>
+</body>
+</html>

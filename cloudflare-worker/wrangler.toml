@@ -1,0 +1,10 @@
+name = "monte-gordo-notify"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+
+[vars]
+FIREBASE_DB_URL = "https://battle-for-monte-gordo-default-rtdb.firebaseio.com"
+FIREBASE_PROJECT_ID = "battle-for-monte-gordo"
+
+# FIREBASE_SERVICE_ACCOUNT_JSON não vai aqui — é um segredo, definido à parte com:
+#   npx wrangler secret put FIREBASE_SERVICE_ACCOUNT_JSON

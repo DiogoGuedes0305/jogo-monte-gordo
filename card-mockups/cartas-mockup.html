@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockups de cartas — Battle for Monte Gordo</title>
+<style>
+  :root {
+    --parchment: #E9E1CE; --surface: #F4EEDF; --surface-2: #DED2B4;
+    --ink: #21201B; --ink-muted: #5B564A; --border: rgba(33,32,27,0.16);
+    --gold: #A8792A; --gold-ink: #FBF6EA;
+    --terra: #B14A34; --terra-ink: #FBF6EA;
+    --shadow: 0 1px 0 rgba(33,32,27,0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --parchment: #0E2233; --surface: #15304A; --surface-2: #0B1B2A;
+      --ink: #EDE7D8; --ink-muted: #A9B2B9; --border: rgba(237,231,216,0.14);
+      --gold: #E3B564; --gold-ink: #1B1204;
+      --terra: #E17A5F; --terra-ink: #1B1204;
+    }
+  }
+  :root[data-theme="dark"] {
+    --parchment: #0E2233; --surface: #15304A; --surface-2: #0B1B2A;
+    --ink: #EDE7D8; --ink-muted: #A9B2B9; --border: rgba(237,231,216,0.14);
+    --gold: #E3B564; --gold-ink: #1B1204;
+    --terra: #E17A5F; --terra-ink: #1B1204;
+  }
+  :root[data-theme="light"] {
+    --parchment: #E9E1CE; --surface: #F4EEDF; --surface-2: #DED2B4;
+    --ink: #21201B; --ink-muted: #5B564A; --border: rgba(33,32,27,0.16);
+    --gold: #A8792A; --gold-ink: #FBF6EA;
+    --terra: #B14A34; --terra-ink: #FBF6EA;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--parchment); color: var(--ink);
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    padding: 2.5rem 1.25rem 5rem;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; }
+  h1 { font: 700 1.7rem/1.25 Georgia, "Rockwell", serif; margin: 0 0 0.4rem; text-wrap: balance; }
+  .lede { color: var(--ink-muted); font-size: 0.95rem; max-width: 64ch; line-height: 1.55; margin: 0 0 2.8rem; }
+  .lede strong { color: var(--ink); }
+
+  .concept { margin-bottom: 3.2rem; }
+  .concept-head { margin-bottom: 1.1rem; }
+  .concept-eyebrow { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold); margin: 0 0 0.25rem; }
+  .concept-name { font: 700 1.25rem/1.3 Georgia, "Rockwell", serif; margin: 0 0 0.4rem; }
+  .concept-blurb { color: var(--ink-muted); font-size: 0.88rem; line-height: 1.6; max-width: 62ch; margin: 0; }
+
+  .stage { display: flex; gap: 1.4rem; flex-wrap: wrap; margin-top: 1.3rem; }
+
+  /* ============ CONCEPT 1 — Selo de Pergaminho ============ */
+  .c1 {
+    width: 192px; min-height: 366px; border-radius: 16px; position: relative;
+    background: var(--surface);
+    background-image: radial-gradient(circle at 22% 18%, rgba(255,255,255,0.3), transparent 42%);
+    border: 2px solid var(--ink); box-shadow: 0 10px 24px rgba(0,0,0,0.28);
+    padding: 2.5rem 1rem 1rem; margin-top: 26px;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+  }
+  .c1::before {
+    content: ''; position: absolute; inset: 6px; border: 1px solid var(--type-color, var(--gold));
+    border-radius: 11px; pointer-events: none;
+  }
+  .c1-medallion {
+    position: absolute; top: -26px; left: 50%; transform: translateX(-50%);
+    width: 54px; height: 54px; border-radius: 50%; background: var(--type-color, var(--gold));
+    display: flex; align-items: center; justify-content: center; font-size: 1.55rem;
+    border: 3px solid var(--surface); box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  }
+  .c1-name { font: 700 1.12rem/1.2 Georgia, "Rockwell", serif; margin: 0.25rem 0 0.3rem; color: var(--ink); }
+  .c1-rule { width: 34px; height: 1px; background: var(--type-color, var(--gold)); margin: 0 auto 0.5rem; position: relative; }
+  .c1-rule::after {
+    content: '✦'; position: absolute; top: -7px; left: 50%; transform: translateX(-50%);
+    font-size: 0.6rem; color: var(--type-color, var(--gold)); background: var(--surface); padding: 0 4px;
+  }
+  .c1-type {
+    font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--type-ink, var(--gold-ink)); background: var(--type-color, var(--gold));
+    padding: 0.16rem 0.65rem; border-radius: 999px; margin-bottom: 0.7rem;
+  }
+  .c1-effect {
+    background: rgba(0,0,0,0.045); border: 1px solid var(--border); border-radius: 8px;
+    padding: 0.6rem 0.55rem; font: italic 400 0.72rem/1.45 Georgia, "Rockwell", serif;
+    color: var(--ink); flex: 1; display: flex; align-items: center;
+  }
+
+  /* ============ CONCEPT 2 — Emblema Militar ============ */
+  .c2 {
+    width: 192px; min-height: 366px; border-radius: 8px; border: 4px solid var(--type-color, var(--gold));
+    background: var(--surface); overflow: hidden; box-shadow: 0 10px 24px rgba(0,0,0,0.28);
+    display: flex; flex-direction: column; position: relative;
+  }
+  .c2-ribbon {
+    position: absolute; top: 10px; left: -30px; transform: rotate(-45deg);
+    background: var(--ink); color: var(--surface); font-size: 0.54rem; font-weight: 700;
+    letter-spacing: 0.07em; text-transform: uppercase; padding: 0.16rem 2.1rem; z-index: 2;
+  }
+  .c2-band { background: var(--type-color, var(--gold)); padding: 1rem 0.5rem 0.8rem; text-align: center; }
+  .c2-icon {
+    width: 46px; height: 46px; border-radius: 50%; background: var(--type-ink, var(--gold-ink));
+    color: var(--type-color, var(--gold)); display: flex; align-items: center; justify-content: center;
+    font-size: 1.45rem; margin: 0 auto 0.45rem; border: 2px solid var(--type-ink, var(--gold-ink));
+  }
+  .c2-name {
+    font: 800 0.98rem/1.2 -apple-system, "Segoe UI", sans-serif; text-transform: uppercase;
+    letter-spacing: 0.02em; margin: 0; color: var(--type-ink, var(--gold-ink));
+  }
+  .c2-body { padding: 0.8rem 0.7rem 0.65rem; flex: 1; display: flex; flex-direction: column; }
+  .c2-effect { font: 500 0.74rem/1.48 -apple-system, "Segoe UI", sans-serif; color: var(--ink); flex: 1; }
+
+  /* ============ CONCEPT 3 — Postal de Viagem ============ */
+  .c3 {
+    width: 192px; min-height: 366px; border-radius: 10px; background: var(--surface);
+    border: 3px dashed var(--type-color, var(--gold)); box-shadow: 0 10px 24px rgba(0,0,0,0.24);
+    padding: 1rem 0.85rem; display: flex; flex-direction: column; align-items: center;
+    text-align: center; position: relative;
+  }
+  .c3-stamp {
+    width: 52px; height: 52px; border-radius: 50%; background: var(--type-color, var(--gold));
+    color: var(--type-ink, var(--gold-ink)); display: flex; align-items: center; justify-content: center;
+    font-size: 1.55rem; margin-bottom: 0.55rem; transform: rotate(-6deg);
+    border: 2px dashed var(--type-ink, var(--gold-ink));
+  }
+  .c3-name {
+    font: 800 1.05rem/1.2 "Trebuchet MS", -apple-system, sans-serif; margin: 0 0 0.2rem; color: var(--ink);
+  }
+  .c3-type {
+    font-size: 0.62rem; font-weight: 700; color: var(--type-color, var(--gold));
+    text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.6rem;
+  }
+  .c3-effect { font: 400 0.74rem/1.5 -apple-system, "Segoe UI", sans-serif; color: var(--ink-muted); flex: 1; }
+  .c3-postmark {
+    align-self: flex-end; font-size: 0.56rem; color: var(--ink-muted);
+    font-family: "SF Mono", Consolas, monospace; opacity: 0.65; margin-top: 0.4rem;
+  }
+
+  /* ============ CONCEPT 4 — Selo + Texto Simples (topo da 1, texto da 3) ============ */
+  .c4 {
+    width: 192px; min-height: 366px; border-radius: 16px; position: relative;
+    background: var(--surface);
+    background-image: radial-gradient(circle at 22% 18%, rgba(255,255,255,0.3), transparent 42%);
+    border: 2px solid var(--ink); box-shadow: 0 10px 24px rgba(0,0,0,0.28);
+    padding: 2.5rem 1rem 1rem; margin-top: 26px;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+  }
+  .c4::before {
+    content: ''; position: absolute; inset: 6px; border: 1px solid var(--type-color, var(--gold));
+    border-radius: 11px; pointer-events: none;
+  }
+  .c4-medallion {
+    position: absolute; top: -26px; left: 50%; transform: translateX(-50%);
+    width: 54px; height: 54px; border-radius: 50%; background: var(--type-color, var(--gold));
+    display: flex; align-items: center; justify-content: center; font-size: 1.55rem;
+    border: 3px solid var(--surface); box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  }
+  .c4-name { font: 700 1.12rem/1.2 Georgia, "Rockwell", serif; margin: 0.25rem 0 0.3rem; color: var(--ink); }
+  .c4-rule { width: 34px; height: 1px; background: var(--type-color, var(--gold)); margin: 0 auto 0.5rem; position: relative; }
+  .c4-rule::after {
+    content: '✦'; position: absolute; top: -7px; left: 50%; transform: translateX(-50%);
+    font-size: 0.6rem; color: var(--type-color, var(--gold)); background: var(--surface); padding: 0 4px;
+  }
+  .c4-type {
+    font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--type-ink, var(--gold-ink)); background: var(--type-color, var(--gold));
+    padding: 0.16rem 0.65rem; border-radius: 999px; margin-bottom: 0.7rem;
+  }
+  .c4-effect { font: 400 0.74rem/1.5 -apple-system, "Segoe UI", sans-serif; color: var(--ink-muted); flex: 1; }
+
+  /* ============ Botões de ação (comuns a todas as direções) ============
+     "Jogar" é exatamente o .hand-card-play que já existe no jogo real —
+     não mudado, só copiado. "Descartar" é o mesmo .btn-remove de sempre,
+     só que como botão contornado em vez de link sublinhado solto — mesma
+     cor/ação, zero lógica nova, só CSS a mais. */
+  .mock-play {
+    width: 100%; border: none; border-radius: 8px; padding: 0.5rem 0.6rem;
+    font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--type-ink, var(--gold-ink)); background: var(--type-color, var(--gold));
+    margin-top: 0.5rem; cursor: pointer;
+  }
+  .mock-discard {
+    width: 100%; border: 1.5px solid var(--terra); border-radius: 8px; padding: 0.42rem 0.6rem;
+    font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--terra); background: transparent; margin-top: 0.4rem; cursor: pointer;
+  }
+  /* Badge de "carta pendente" (mão cheia, a contar) — hoje é só uma linha de
+     texto a vermelho (.assault-warning); aqui vira uma pill com ícone, cor
+     própria (não a do tipo da carta, para não se confundir com Vantagem/Ataque)
+     e texto encurtado. */
+  .mock-pending {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    background: color-mix(in srgb, var(--terra) 16%, var(--surface));
+    border: 1px solid color-mix(in srgb, var(--terra) 38%, transparent);
+    color: var(--terra); font-size: 0.64rem; font-weight: 700;
+    padding: 0.24rem 0.6rem; border-radius: 999px; margin: 0.3rem 0 0;
+  }
+
+  .gold { --type-color: var(--gold); --type-ink: var(--gold-ink); }
+  .terra { --type-color: var(--terra); --type-ink: var(--terra-ink); }
+
+  footer { margin-top: 2.6rem; font-size: 0.82rem; color: var(--ink-muted); line-height: 1.65; max-width: 64ch; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Mockups de cartas — Battle for Monte Gordo</h1>
+  <p class="lede">Direção escolhida: <strong>4 — Selo + Texto Simples</strong>. Em baixo estão as 12 cartas do jogo completas nesse estilo, com texto real (nome + efeito tal como estão no jogo hoje). As outras 3 direções ficam mais abaixo, só como registo da comparação. Nenhuma carta foi ainda ligada à app — é só para aprovares antes de eu substituir as atuais.</p>
+
+  <!-- CONJUNTO COMPLETO — DIREÇÃO 4 -->
+  <div class="concept">
+    <div class="concept-head">
+      <p class="concept-eyebrow">Pronto a implementar</p>
+      <p class="concept-name">As 12 cartas — Direção 4</p>
+      <p class="concept-blurb">Mesmo texto e mecânica de sempre, só o visual muda. A Bónus não tem botão "Jogar" (é assim no jogo real — só compensa guardá-la, não tem ação nenhuma), as restantes têm Jogar + Descartar como as outras direções.</p>
+    </div>
+    <div class="stage">
+      <div class="c4 gold">
+        <div class="c4-medallion">🛡️</div>
+        <p class="c4-name">Escudo</p>
+        <div class="c4-rule"></div>
+        <span class="c4-type">Vantagem</span>
+        <p class="c4-effect">Escolhem 2 territórios vossos — ficam protegidos para sempre, nunca podem ser assaltados.</p>
+        <button type="button" class="mock-play">Jogar</button>
+        <button type="button" class="mock-discard">Descartar</button>
+      </div>
+      <div class="c4 terra">
+        <div class="c4-medallion">⚔️</div>
+        <p class="c4-name">Assalto</p>
+        <div class="c4-rule"></div>
+        <span class="c4-type">Ataque</span>
+        <p class="c4-effect">Escolhem 2 territórios rivais sem escudo — ficam "em risco" 30 min; só vocês podem reconquistá-los nesse tempo.</p>
+        <button type="button" class="mock-play">Jogar</button>
+        <button type="button" class="mock-discard">Descartar</button>
+      </div>
+      <div class="c4 gold">
+        <div class="c4-medallion">🎟️</div>
+        <p class="c4-name">Carta Extra</p>
+        <div class="c4-rule"></div>
+        <span class="c4-type">Vantagem</span>
+        <p class="c4-effect">Ao jogar, veem 3 cartas do baralho e escolhem 1 para ficar na mão — se fecharem o popup sem escolher, sai uma das 3 ao acaso.</p>
+        <button type="button" class="mock-play">Jogar</button>
+        <button type="button" class="mock-discard">Descartar</button>
+      </div>
+      <div class="c4 terra">
+        <div class="c4-medallion">🥷</div>
+        <p class="c4-name">Roubo de Carta</p>
+        <div class="c4-rule"></div>
+        <span class="c4-type">Ataque</span>
+        <p class="c4-effect">Escolhem uma equipa rival — roubam uma carta aleatória da mão dela para a vossa.</p>
+        <button type="button" class="mock-play">Jogar</button>
+        <button type="button" class="mock-discard">Descartar</button>
+      </div>
+      <div class="c4 gold">
+        <div class="c4-medallion">🕵️</div>
+        <p class="c4-name">Espião</p>
+        <div class="c4-rule"></div>
+        <span class="c4-type">Vantagem</span>
+        <p class="c4-effect">Escolhem uma equipa rival e veem, em segredo, 2 cartas aleatórias da mão dela — ela nunca fica a saber.</p>
+        <button type="button" class="mock-play">Jogar</button>
+        <button type="button" class="mock-discard">Descartar</button>
+      </div>
+      <div class="c4 gold">
+        <div class="c4-medallion">👟</div>
+        <p class="c4-name">Corrida</p>
+        <div class="c4-rule"></div>
+        <span class="c4-type">Vantagem</span>
+        <p class="c4-effect">Ativa 30 min em que todos os territórios que a vossa equipa conquistar valem +50 pts. Os pontos bónus ficam secretos e só são somados ao placar quando o jogo terminar de vez.</p>
+        <button type="button" class="mock-play">Jogar</button>
+        <button type="button" class="mock-discard">Descartar</button>
+      </div>
+      <div class="c4 gold">
+        <div class="c4-medallion">🧽</div>
+        <p class="c4-name">Limpeza</p>
+        <div class="c4-rule"></div>
+        <span class="c4-type">Vantagem</span>
+        <p class="c4-effect">Remove imediatamente qualquer efeito negativo ativo sobre a vossa equipa, seja diretamente sobre vocês ou sobre os vossos territórios.</p>
+        <button type="button" class="mock-play">Jogar</button>
+        <button type="button" class="mock-discard">Descartar</button>
+      </div>
+      <div class="c4 terra">
+        <div class="c4-medallion">❄️</div>
+        <p class="c4-name">Congelar</p>
+        <div class="c4-rule"></div>
+        <span class="c4-type">Ataque</span>
+        <p class="c4-effect">A equipa alvo não pode conquistar nada durante 15 min.</p>
+        <button type="button" class="mock-play">Jogar</button>
+        <button type="button" class="mock-discard">Descartar</button>
+      </div>
+      <div class="c4 gold">
+        <div class="c4-medallion">💰</div>
+        <p class="c4-name">Bónus</p>
+        <div class="c4-rule"></div>
+        <span class="c4-type">Vantagem</span>
+        <p class="c4-effect">Se ainda estiver na vossa mão (não pendente) quando o jogo terminar de vez, vale +300 pts extra — não tem efeito nenhum se a jogarem, só compensa guardá-la.</p>
+        <button type="button" class="mock-discard">Descartar</button>
+      </div>
+      <div class="c4 terra">
+        <div class="c4-medallion">🏃</div>
+        <p class="c4-name">Castigo Físico</p>
+        <div class="c4-rule"></div>
+        <span class="c4-type">Ataque</span>
+        <p class="c4-effect">Escolhem uma equipa rival — tem de parar tudo e fazer 10 flexões e 10 agachamentos cada elemento, ficando bloqueada na app até marcar como concluído.</p>
+        <button type="button" class="mock-play">Jogar</button>
+        <button type="button" class="mock-discard">Descartar</button>
+      </div>
+      <div class="c4 terra">
+        <div class="c4-medallion">↪️</div>
+        <p class="c4-name">Maldição da Direita</p>
+        <div class="c4-rule"></div>
+        <span class="c4-type">Ataque</span>
+        <p class="c4-effect">Escolhem uma equipa rival — durante 20 min só pode virar à direita em cada cruzamento (regra de honra, sem imposição da app).</p>
+        <button type="button" class="mock-play">Jogar</button>
+        <button type="button" class="mock-discard">Descartar</button>
+      </div>
+      <div class="c4 terra">
+        <div class="c4-medallion">🐌</div>
+        <p class="c4-name">Lentidão</p>
+        <div class="c4-rule"></div>
+        <span class="c4-type">Ataque</span>
+        <p class="c4-effect">Escolhem uma equipa rival — durante 20 min não pode correr (regra de honra, sem imposição da app).</p>
+        <button type="button" class="mock-play">Jogar</button>
+        <button type="button" class="mock-discard">Descartar</button>
+      </div>
+    </div>
+  </div>
+
+  <p class="concept-eyebrow" style="margin: 3.4rem 0 0.3rem;">Registo — comparação original</p>
+  <p class="concept-blurb" style="margin-bottom: 1.4rem;">As 4 direções que levaram à escolha acima, mantidas aqui só para referência.</p>
+
+  <!-- CONCEPT 1 -->
+  <div class="concept">
+    <div class="concept-head">
+      <p class="concept-eyebrow">Direção 1</p>
+      <p class="concept-name">Selo de Pergaminho</p>
+      <p class="concept-blurb">Medalhão tipo selo de cera no topo, moldura dupla, texto em itálico serifado — continua diretamente a linguagem "mapa antigo / aventura" que a app já tem (fundo pergaminho, Georgia nos títulos). É a opção que menos destoa do resto do jogo.</p>
+    </div>
+    <div class="stage">
+      <div class="c1 gold">
+        <div class="c1-medallion">🛡️</div>
+        <p class="c1-name">Escudo</p>
+        <div class="c1-rule"></div>
+        <span class="c1-type">Vantagem</span>
+        <p class="c1-effect">Escolhem 2 territórios vossos — ficam protegidos para sempre, nunca podem ser assaltados.</p>
+        <span class="mock-pending">⏳ 3 min para decidir</span>
+        <button type="button" class="mock-play">Jogar</button>
+        <button type="button" class="mock-discard">Descartar</button>
+      </div>
+      <div class="c1 terra">
+        <div class="c1-medallion">⚔️</div>
+        <p class="c1-name">Assalto</p>
+        <div class="c1-rule"></div>
+        <span class="c1-type">Ataque</span>
+        <p class="c1-effect">Escolhem 2 territórios rivais sem escudo — ficam "em risco" 30 min; só vocês podem reconquistá-los.</p>
+        <span class="mock-pending">⏳ 3 min para decidir</span>
+        <button type="button" class="mock-play">Jogar</button>
+        <button type="button" class="mock-discard">Descartar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONCEPT 2 -->
+  <div class="concept">
+    <div class="concept-head">
+      <p class="concept-eyebrow">Direção 2</p>
+      <p class="concept-name">Emblema Militar</p>
+      <p class="concept-blurb">Faixa de cor cheia no topo com o ícone em crachá, fita diagonal a marcar o tipo, tipografia sans-serif maiúscula e bem pesada. Mais gráfico e "jogo de tabuleiro/estratégia" — lê-se rapidíssimo, ótimo para quem está a decidir a meio de um jogo em movimento.</p>
+    </div>
+    <div class="stage">
+      <div class="c2 gold">
+        <span class="c2-ribbon">Vantagem</span>
+        <div class="c2-band">
+          <div class="c2-icon">🛡️</div>
+          <p class="c2-name">Escudo</p>
+        </div>
+        <div class="c2-body">
+          <p class="c2-effect">Escolhem 2 territórios vossos — ficam protegidos para sempre, nunca podem ser assaltados.</p>
+          <button type="button" class="mock-play">Jogar</button>
+          <button type="button" class="mock-discard">Descartar</button>
+        </div>
+      </div>
+      <div class="c2 terra">
+        <span class="c2-ribbon">Ataque</span>
+        <div class="c2-band">
+          <div class="c2-icon">⚔️</div>
+          <p class="c2-name">Assalto</p>
+        </div>
+        <div class="c2-body">
+          <p class="c2-effect">Escolhem 2 territórios rivais sem escudo — ficam "em risco" 30 min; só vocês podem reconquistá-los.</p>
+          <button type="button" class="mock-play">Jogar</button>
+          <button type="button" class="mock-discard">Descartar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONCEPT 3 -->
+  <div class="concept">
+    <div class="concept-head">
+      <p class="concept-eyebrow">Direção 3</p>
+      <p class="concept-name">Postal de Viagem</p>
+      <p class="concept-blurb">Moldura tracejada tipo selo de correio, carimbo circular ligeiramente rodado, tom mais leve e descontraído. Menos "jogo de estratégia sério", mais "aventura de fim de semana com amigos" — combina com o espírito da viagem, não só com o mapa.</p>
+    </div>
+    <div class="stage">
+      <div class="c3 gold">
+        <div class="c3-stamp">🛡️</div>
+        <p class="c3-name">Escudo</p>
+        <p class="c3-type">Vantagem</p>
+        <p class="c3-effect">Escolhem 2 territórios vossos — ficam protegidos para sempre, nunca podem ser assaltados.</p>
+        <span class="mock-pending">⏳ 3 min para decidir</span>
+        <button type="button" class="mock-play">Jogar</button>
+        <button type="button" class="mock-discard">Descartar</button>
+        <span class="c3-postmark">Monte Gordo</span>
+      </div>
+      <div class="c3 terra">
+        <div class="c3-stamp">⚔️</div>
+        <p class="c3-name">Assalto</p>
+        <p class="c3-type">Ataque</p>
+        <p class="c3-effect">Escolhem 2 territórios rivais sem escudo — ficam "em risco" 30 min; só vocês podem reconquistá-los.</p>
+        <span class="mock-pending">⏳ 3 min para decidir</span>
+        <button type="button" class="mock-play">Jogar</button>
+        <button type="button" class="mock-discard">Descartar</button>
+        <span class="c3-postmark">Monte Gordo</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONCEPT 4 -->
+  <div class="concept">
+    <div class="concept-head">
+      <p class="concept-eyebrow">Direção 4</p>
+      <p class="concept-name">Selo + Texto Simples</p>
+      <p class="concept-blurb">Mistura pedida: o topo da Direção 1 (medalhão, moldura dupla, regra decorativa) com o texto da Direção 3 (sem caixa, sem itálico, sans-serif simples). Fica com o cunho "selo antigo" no topo, mas mais fácil de ler rápido a meio do jogo.</p>
+    </div>
+    <div class="stage">
+      <div class="c4 gold">
+        <div class="c4-medallion">🛡️</div>
+        <p class="c4-name">Escudo</p>
+        <div class="c4-rule"></div>
+        <span class="c4-type">Vantagem</span>
+        <p class="c4-effect">Escolhem 2 territórios vossos — ficam protegidos para sempre, nunca podem ser assaltados.</p>
+        <span class="mock-pending">⏳ 3 min para decidir</span>
+        <button type="button" class="mock-play">Jogar</button>
+        <button type="button" class="mock-discard">Descartar</button>
+      </div>
+      <div class="c4 terra">
+        <div class="c4-medallion">⚔️</div>
+        <p class="c4-name">Assalto</p>
+        <div class="c4-rule"></div>
+        <span class="c4-type">Ataque</span>
+        <p class="c4-effect">Escolhem 2 territórios rivais sem escudo — ficam "em risco" 30 min; só vocês podem reconquistá-los.</p>
+        <span class="mock-pending">⏳ 3 min para decidir</span>
+        <button type="button" class="mock-play">Jogar</button>
+        <button type="button" class="mock-discard">Descartar</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Nota: aqui a badge "⏳ 3 min para decidir" aparece sempre junto com o botão "Jogar" só para comparares os estilos lado a lado — no jogo real o "Jogar" fica escondido enquanto a carta está pendente (só existe a opção de descartar outra para a confirmar), isso não muda com este redesign.<br><br>
+    Ficheiro guardado em <code>card-mockups/cartas-mockup.html</code>, ainda não ligado ao jogo. Diz qual direção preferes (ou pede outra mistura) e desenho as 12 cartas todas nesse estilo antes de as pormos a substituir as atuais.
+  </footer>
+</div>
+</body>
+</html>

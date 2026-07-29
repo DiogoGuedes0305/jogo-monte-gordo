@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Regras — Direção B (Secções Icónicas)</title>
+<style>
+  :root {
+    --bg: #E9E1CE; --surface: #F4EEDF; --surface-2: #DED2B4;
+    --text: #21201B; --text-muted: #5B564A;
+    --border: rgba(33,32,27,0.16); --border-strong: rgba(33,32,27,0.3);
+    --accent: #A8792A; --accent-ink: #FBF6EA; --danger: #B14A34;
+    --shadow: 0 1px 0 rgba(33,32,27,0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0E2233; --surface: #15304A; --surface-2: #0B1B2A;
+      --text: #EDE7D8; --text-muted: #A9B2B9;
+      --border: rgba(237,231,216,0.14); --border-strong: rgba(237,231,216,0.28);
+      --accent: #E3B564; --accent-ink: #1B1204; --danger: #E17A5F;
+      --shadow: 0 1px 0 rgba(0,0,0,0.3);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0E2233; --surface: #15304A; --surface-2: #0B1B2A;
+    --text: #EDE7D8; --text-muted: #A9B2B9;
+    --border: rgba(237,231,216,0.14); --border-strong: rgba(237,231,216,0.28);
+    --accent: #E3B564; --accent-ink: #1B1204; --danger: #E17A5F;
+    --shadow: 0 1px 0 rgba(0,0,0,0.3);
+  }
+  :root[data-theme="light"] {
+    --bg: #E9E1CE; --surface: #F4EEDF; --surface-2: #DED2B4;
+    --text: #21201B; --text-muted: #5B564A;
+    --border: rgba(33,32,27,0.16); --border-strong: rgba(33,32,27,0.3);
+    --accent: #A8792A; --accent-ink: #FBF6EA; --danger: #B14A34;
+    --shadow: 0 1px 0 rgba(33,32,27,0.08);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    display: flex; justify-content: center; padding: 2rem 1rem 5rem;
+  }
+  .phone { width: 100%; max-width: 400px; }
+  .meta-note {
+    max-width: 400px; margin: 0 auto 1.4rem; font-size: 0.78rem; color: var(--text-muted);
+    line-height: 1.5; text-align: center;
+  }
+  .meta-note strong { color: var(--text); }
+
+  .section { padding: 0 0 1.4rem; }
+  .section-title {
+    font: 700 0.78rem/1 Georgia, "Rockwell", serif; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--text-muted); margin: 0 0 0.7rem;
+  }
+  .panel {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 1rem 1rem 1.05rem; box-shadow: var(--shadow);
+  }
+
+  /* ---- O Jogo: hook curto + tira de 3 ícones ---- */
+  .hook { font: 700 1.05rem/1.35 Georgia, "Rockwell", serif; margin: 0 0 1rem; text-align: center; text-wrap: balance; }
+  .icon-strip { display: flex; align-items: center; justify-content: center; gap: 0.4rem; }
+  .icon-strip-step { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; width: 74px; }
+  .icon-strip-bubble {
+    width: 46px; height: 46px; border-radius: 50%; background: var(--bg); border: 1.5px solid var(--accent);
+    display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+  }
+  .icon-strip-label { font-size: 0.68rem; font-weight: 700; text-align: center; line-height: 1.25; color: var(--text-muted); }
+  .icon-strip-arrow { font-size: 1.1rem; color: var(--accent); flex-shrink: 0; margin-top: -1.1rem; }
+  .icon-strip-4 { flex-wrap: wrap; row-gap: 0.7rem; }
+  .icon-strip-4 .icon-strip-step { width: 62px; }
+  .icon-strip-4 .icon-strip-bubble { width: 40px; height: 40px; font-size: 1.2rem; }
+  .icon-strip-4 .icon-strip-label { font-size: 0.62rem; }
+
+  /* ---- Como jogar: 4 passos em ícone+label, numerados ---- */
+  .step-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+  .step-tile {
+    position: relative; background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+    padding: 0.8rem 0.6rem 0.65rem; display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+    text-align: center;
+  }
+  .step-tile-num {
+    position: absolute; top: -8px; left: -8px; width: 22px; height: 22px; border-radius: 50%;
+    background: var(--accent); color: var(--accent-ink); font: 800 0.72rem/22px "SF Mono", Consolas, monospace;
+    text-align: center;
+  }
+  .step-tile-icon { font-size: 1.55rem; }
+  .step-tile-label { font-size: 0.74rem; font-weight: 700; line-height: 1.3; }
+
+  /* ---- Exemplo: mini cartões território antes/depois ---- */
+  .example-flow { display: flex; align-items: center; justify-content: center; gap: 0.6rem; flex-wrap: wrap; }
+  .example-arrow { font-size: 1.2rem; color: var(--text-muted); flex-shrink: 0; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); width: 132px; }
+  .card-stripe { height: 5px; background: var(--border); }
+  .card-stripe[data-owned="true"] { background: var(--stripe-color, var(--accent)); }
+  .card-body { padding: 0.65rem 0.7rem 0.75rem; display: flex; flex-direction: column; gap: 0.35rem; }
+  .card-top { display: flex; align-items: center; justify-content: space-between; }
+  .card-icon svg { width: 17px; height: 17px; color: var(--text-muted); }
+  .points-badge { font-family: "SF Mono", Consolas, "Roboto Mono", monospace; font-size: 0.68rem; font-weight: 700; background: var(--bg); border: 1px solid var(--border); border-radius: 999px; padding: 0.18rem 0.45rem; }
+  .card-name { font: 700 0.82rem/1.2 Georgia, "Rockwell", serif; margin: 0; }
+  .status-pill { align-self: flex-start; font-size: 0.66rem; font-weight: 700; padding: 0.16rem 0.5rem; border-radius: 999px; color: var(--pill-ink, var(--text)); background: var(--pill-bg, var(--border)); }
+  .caption-row { display: flex; justify-content: center; gap: 1rem; margin-top: 0.9rem; flex-wrap: wrap; }
+  .caption-chip { display: flex; align-items: center; gap: 0.35rem; font-size: 0.74rem; font-weight: 700; color: var(--text-muted); }
+  .example-flow-clear { display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+  .example-step { display: flex; flex-direction: column; align-items: center; gap: 0.2rem; flex-shrink: 0; }
+  .example-step-icon { font-size: 1.35rem; }
+  .example-step-label { font-size: 0.62rem; font-weight: 700; color: var(--text-muted); white-space: nowrap; }
+  .single-caption { text-align: center; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin: 0.9rem 0 0; }
+
+  /* ---- Cartas: reaproveita a identidade visual das hand-cards ---- */
+  .hand-card {
+    width: 132px; min-height: 150px; border-radius: 14px; position: relative; overflow: hidden;
+    background: var(--surface); border: 2px solid var(--text); box-shadow: var(--shadow);
+    padding: 1.2rem 0.6rem 0.7rem; display: flex; flex-direction: column; align-items: center;
+    gap: 0.3rem; flex-shrink: 0; text-align: center;
+  }
+  .hand-card::before { content: ''; position: absolute; inset: 5px; border: 1px solid var(--accent); border-radius: 9px; pointer-events: none; }
+  .hand-card-icon { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; background: var(--accent); border: 2px solid var(--surface); box-shadow: 0 2px 6px rgba(0,0,0,0.22); }
+  .hand-card-name { font: 700 0.78rem/1.2 Georgia, "Rockwell", serif; margin: 0.15rem 0 0; }
+  .hand-card-rule { width: 22px; height: 1px; background: var(--accent); margin: 0.05rem auto 0; position: relative; }
+  .hand-card-rule::after { content: '✦'; position: absolute; top: -5px; left: 50%; transform: translateX(-50%); font-size: 0.46rem; color: var(--accent); background: var(--surface); padding: 0 2px; }
+  .hand-card-type { font-size: 0.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-ink); background: var(--accent); border-radius: 999px; padding: 0.1rem 0.45rem; }
+  .hand-card[data-card-type="Ataque"] .hand-card-icon, .hand-card[data-card-type="Ataque"] .hand-card-rule, .hand-card[data-card-type="Ataque"] .hand-card-type { background: var(--danger); }
+  .hand-card[data-card-type="Ataque"]::before { border-color: var(--danger); }
+  .hand-card[data-card-type="Ataque"] .hand-card-rule::after { color: var(--danger); }
+
+  /* ---- Desafio Relâmpago ---- */
+  .flash-flow { display: flex; align-items: center; justify-content: center; gap: 0.55rem; font-size: 1.9rem; }
+  .flash-arrow { font-size: 1rem; color: var(--accent); }
+
+  /* ---- Regras: grelha de factos rápidos ---- */
+  .fact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+  .fact-chip {
+    display: flex; flex-direction: column; align-items: center; gap: 0.3rem; text-align: center;
+    background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 0.7rem 0.5rem;
+  }
+  .fact-chip-icon { font-size: 1.3rem; }
+  .fact-chip-label { font-size: 0.68rem; font-weight: 700; line-height: 1.3; color: var(--text); }
+
+  h1 { font: 700 1.4rem/1.3 Georgia, "Rockwell", serif; text-align: center; margin: 0 0 0.3rem; }
+  .subtitle { text-align: center; color: var(--text-muted); font-size: 0.85rem; margin: 0 0 2rem; }
+</style>
+</head>
+<body>
+<div class="phone">
+  <h1>📖 Regras — Direção B</h1>
+  <p class="subtitle">Secções Icónicas</p>
+  <p class="meta-note">Mesma estrutura de secções que a aba Regras tem hoje (O Jogo / Como jogar / Exemplo / Cartas / Desafio Relâmpago / Regras) — só que cada uma foi reescrita para <strong>ícone + fragmento curto</strong> em vez de frases inteiras. É um "aperto" secção a secção, não uma reconstrução total.</p>
+
+  <div class="section">
+    <p class="section-title">O Jogo</p>
+    <div class="panel">
+      <p class="hook">Formem equipas. Conquistem Monte Gordo. Ganhem pontos — e cartas.</p>
+      <div class="icon-strip">
+        <div class="icon-strip-step"><div class="icon-strip-bubble">🚶</div><span class="icon-strip-label">Equipas</span></div>
+        <span class="icon-strip-arrow">→</span>
+        <div class="icon-strip-step"><div class="icon-strip-bubble">🗺️</div><span class="icon-strip-label">Território</span></div>
+        <span class="icon-strip-arrow">→</span>
+        <div class="icon-strip-step"><div class="icon-strip-bubble">🏆</div><span class="icon-strip-label">Pontos</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="section-title">Como jogar</p>
+    <div class="panel">
+      <div class="step-grid">
+        <div class="step-tile"><span class="step-tile-num">1</span><span class="step-tile-icon">👥</span><span class="step-tile-label">Criar equipa<br><span style="font-weight:400;color:var(--text-muted);">em Gestão</span></span></div>
+        <div class="step-tile"><span class="step-tile-num">2</span><span class="step-tile-icon">🗺️</span><span class="step-tile-label">Escolher território<br><span style="font-weight:400;color:var(--text-muted);">Mapa ou lista</span></span></div>
+        <div class="step-tile"><span class="step-tile-num">3</span><span class="step-tile-icon">🏃</span><span class="step-tile-label">Cumprir desafio<br><span style="font-weight:400;color:var(--text-muted);">no local</span></span></div>
+        <div class="step-tile"><span class="step-tile-num">4</span><span class="step-tile-icon">📸</span><span class="step-tile-label">Enviar prova<br><span style="font-weight:400;color:var(--text-muted);">e conquistar</span></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="section-title">Exemplo</p>
+    <div class="panel">
+      <div class="example-flow-clear">
+        <div class="card">
+          <div class="card-stripe" data-owned="false"></div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9A6 6 0 0 1 18 9L12 20Z"/><circle cx="12" cy="9" r="2" fill="currentColor" stroke="none"/></svg></span><span class="points-badge">200 pts</span></div>
+            <p class="card-name">Miradouro</p>
+            <span class="status-pill" style="--pill-bg:var(--border);--pill-ink:var(--text-muted)">Livre</span>
+          </div>
+        </div>
+        <div class="example-step">
+          <span class="example-step-icon">📸</span>
+          <span class="example-step-label">Enviam prova</span>
+        </div>
+        <div class="card">
+          <div class="card-stripe" data-owned="true" style="--stripe-color:#2563EB"></div>
+          <div class="card-body">
+            <div class="card-top"><span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9A6 6 0 0 1 18 9L12 20Z"/><circle cx="12" cy="9" r="2" fill="currentColor" stroke="none"/></svg></span><span class="points-badge">200 pts</span></div>
+            <p class="card-name">Miradouro</p>
+            <span class="status-pill" style="--pill-bg:color-mix(in srgb, #2563EB 22%, var(--surface));--pill-ink:#2563EB">Tubarões</span>
+          </div>
+        </div>
+      </div>
+      <p class="single-caption">🎉 Atualiza logo para toda a gente, com festa incluída.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="section-title">Cartas</p>
+    <div class="panel">
+      <div class="example-flow">
+        <div class="hand-card" data-card-type="Vantagem">
+          <span class="hand-card-icon">✨</span>
+          <p class="hand-card-name">Ajudam a tua equipa</p>
+          <span class="hand-card-rule"></span>
+          <span class="hand-card-type">Vantagem</span>
+        </div>
+        <div class="hand-card" data-card-type="Ataque">
+          <span class="hand-card-icon">💥</span>
+          <p class="hand-card-name">Atrapalham outras equipas</p>
+          <span class="hand-card-rule"></span>
+          <span class="hand-card-type">Ataque</span>
+        </div>
+      </div>
+      <div class="caption-row">
+        <span class="caption-chip">🥇 Conquistem territórios para ganhar cartas</span>
+        <span class="caption-chip">🎴 Max 3 na mão</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="section-title">Desafio Relâmpago</p>
+    <div class="panel">
+      <div class="icon-strip icon-strip-4">
+        <div class="icon-strip-step"><div class="icon-strip-bubble">⏱️</div><span class="icon-strip-label">Desafio surpresa</span></div>
+        <span class="icon-strip-arrow">→</span>
+        <div class="icon-strip-step"><div class="icon-strip-bubble">👥</div><span class="icon-strip-label">Todas as equipas</span></div>
+        <span class="icon-strip-arrow">→</span>
+        <div class="icon-strip-step"><div class="icon-strip-bubble">📸</div><span class="icon-strip-label">Enviam prova</span></div>
+        <span class="icon-strip-arrow">→</span>
+        <div class="icon-strip-step"><div class="icon-strip-bubble">🥇</div><span class="icon-strip-label">1ª equipa ganha!</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="section-title">Regras</p>
+    <div class="panel">
+      <div class="fact-grid">
+        <div class="fact-chip"><span class="fact-chip-icon">🎯</span><span class="fact-chip-label">1 equipa por território</span></div>
+        <div class="fact-chip"><span class="fact-chip-icon">📸</span><span class="fact-chip-label">Prova obrigatória</span></div>
+        <div class="fact-chip"><span class="fact-chip-icon">💰</span><span class="fact-chip-label">Pontos variam por local</span></div>
+        <div class="fact-chip"><span class="fact-chip-icon">🎴</span><span class="fact-chip-label">Só 3 cartas na mão de cada equipa</span></div>
+        <div class="fact-chip"><span class="fact-chip-icon">🤫</span><span class="fact-chip-label">Pontos bónus só se veem no fim</span></div>
+        <div class="fact-chip"><span class="fact-chip-icon">🏆</span><span class="fact-chip-label">Mais pontos no fim vence</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
