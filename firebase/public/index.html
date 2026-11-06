@@ -169,6 +169,16 @@
     .btn-free:hover { color: var(--danger); }
     .btn-free svg { width: 14px; height: 14px; flex-shrink: 0; }
 
+    .btn-pill {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      border: 1px solid var(--border); background: var(--surface); color: var(--text-muted);
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase;
+      padding: 0.45rem 0.9rem 0.45rem 0.7rem; border-radius: 999px; box-shadow: var(--shadow);
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+    .btn-pill:hover { color: var(--accent); border-color: var(--accent); }
+    .btn-pill svg { width: 15px; height: 15px; flex-shrink: 0; }
+
     .picker { display: flex; flex-wrap: wrap; gap: 0.4rem; }
     .chip { display: flex; align-items: center; gap: 0.35rem; border: 1px solid var(--border); background: var(--bg); border-radius: 999px; padding: 0.32rem 0.65rem 0.32rem 0.4rem; font-size: 0.78rem; font-weight: 600; color: var(--text); }
     .chip:hover { border-color: var(--border-strong); }
@@ -510,6 +520,9 @@
 
     <div id="view-waiting" hidden>
       <div class="section">
+        <button type="button" class="btn-pill" id="btn-waiting-back" style="margin-bottom:1rem;">
+          <svg><use href="#icon-arrow-left"/></svg><span>Voltar</span>
+        </button>
         <p class="section-title">A aguardar jogadores</p>
         <div class="panel">
           <p class="empty-state" id="waiting-status" style="margin:0 0 1rem;">A aguardar jogadores…</p>
@@ -789,8 +802,12 @@
           <div class="panel">
             <p class="empty-state" style="margin:0 0 1rem;">Quantas cópias de cada carta existem no jogo — quanto menos cópias, mais rara. Se todas ficarem a 0, o jogo continua normalmente, só não há cartas para ganhar.</p>
             <div class="field-row" style="margin-bottom:0.8rem;">
-              <button type="button" class="btn-reassign" id="btn-deck-zero-all">Pôr tudo a 0</button>
-              <button type="button" class="btn-reassign" id="btn-deck-plus-all">+1 a todas</button>
+              <button type="button" class="btn-pill" id="btn-deck-zero-all">
+                <svg><use href="#icon-refresh"/></svg><span>Pôr tudo a 0</span>
+              </button>
+              <button type="button" class="btn-pill" id="btn-deck-plus-all">
+                <svg><use href="#icon-plus"/></svg><span>+1 a todas</span>
+              </button>
             </div>
             <ul class="entry-list" id="list-deck"></ul>
           </div>
@@ -940,6 +957,16 @@
     </symbol>
     <symbol id="icon-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
       <line x1="4" y1="7" x2="20" y2="7"/><path d="M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13"/><path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/>
+    </symbol>
+    <symbol id="icon-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="19" y1="12" x2="5" y2="12"/><polyline points="11,6 5,12 11,18"/>
+    </symbol>
+    <symbol id="icon-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="3,4 3,9 8,9"/><polyline points="21,20 21,15 16,15"/>
+      <path d="M3.51 9a9 9 0 0 1 14.85-3.36L21 9"/><path d="M20.49 15a9 9 0 0 1-14.85 3.36L3 15"/>
+    </symbol>
+    <symbol id="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
     </symbol>
   </svg>
 
@@ -2915,7 +2942,7 @@
 
       byId('modal-body').innerHTML =
         '<h2 class="modal-title" id="modal-title">🏃 Jogar Castigo Físico</h2>' +
-        '<p class="empty-state" style="margin:0 0 1rem;">Escolham uma equipa rival — fica bloqueada na app (10 flexões e 10 agachamentos cada elemento) até marcarem como concluído.</p>' +
+        '<p class="empty-state" style="margin:0 0 1rem;">Escolham uma equipa rival — fica bloqueada na app (20 flexões ou 20 agachamentos cada elemento da equipa) até marcarem como concluído.</p>' +
         (rivals.length
           ? '<div class="picker">' + pickerHtml + '</div>'
           : '<p class="empty-state">Não há equipas rivais para castigar.</p>');
@@ -3172,7 +3199,7 @@
       { id: 'limpeza', emoji: '🧽', name: 'Limpeza', type: 'Vantagem', effect: 'Remove imediatamente qualquer efeito negativo ativo sobre a vossa equipa, seja diretamente sobre vocês ou sobre os vossos territórios.' },
       { id: 'congelar', emoji: '❄️', name: 'Congelar', type: 'Ataque', effect: 'A equipa alvo não pode conquistar nada durante 15 min.' },
       { id: 'bonus', emoji: '💰', name: 'Bónus', type: 'Vantagem', effect: 'Se ainda estiver na vossa mão (não pendente) quando o jogo terminar de vez, vale +300 pts extra — não tem efeito nenhum se a jogarem, só compensa guardá-la.' },
-      { id: 'castigo-fisico', emoji: '🏃', name: 'Castigo Físico', type: 'Ataque', effect: 'Escolhem uma equipa rival — tem de parar tudo e fazer 10 flexões e 10 agachamentos cada elemento, ficando bloqueada na app até marcar como concluído.' },
+      { id: 'castigo-fisico', emoji: '🏃', name: 'Castigo Físico', type: 'Ataque', effect: 'Escolhem uma equipa rival — tem de parar tudo e fazer 20 flexões ou 20 agachamentos cada elemento da equipa, ficando bloqueada na app até marcar como concluído.' },
       { id: 'maldicao-direita', emoji: '↪️', name: 'Maldição da Direita', type: 'Ataque', effect: 'Escolhem uma equipa rival — durante 20 min só pode virar à direita em cada cruzamento (regra de honra, sem imposição da app).' },
       { id: 'lentidao', emoji: '🐌', name: 'Lentidão', type: 'Ataque', effect: 'Escolhem uma equipa rival — durante 20 min não pode correr (regra de honra, sem imposição da app).' }
     ];
@@ -4431,6 +4458,12 @@
       setMyTeamId(selectedDeviceTeamId);
       setupPushNotifications(selectedDeviceTeamId);
       if (STATE.gameStarted) { enterGameMode(); } else { enterWaitingMode(); }
+    });
+
+    byId('btn-waiting-back').addEventListener('click', function () {
+      clearMyTeamId();
+      enterLobbyMode();
+      switchView('novo-jogo');
     });
 
     byId('form-location').addEventListener('submit', function (e) {

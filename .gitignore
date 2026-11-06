@@ -1,0 +1,5 @@
+.firebase/
+.wrangler/
+node_modules/
+backups/
+*.service-account*.json
