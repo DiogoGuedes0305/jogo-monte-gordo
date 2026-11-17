@@ -1,60 +1,64 @@
+🇬🇧 **English** · 🇵🇹 [Português](README.pt.md)
+
 # Battle for Monte Gordo
 
-Um jogo de rua para jogar por equipas, cada equipa com o telemóvel, em Monte Gordo (Algarve).
-As equipas correm para **territórios** reais (Casino, praias, Pinhal, Sushi, Ténis, Campismo, Prime…), cumprem
-um desafio no local, enviam uma **prova em foto ou vídeo** e conquistam o território. Ganha a equipa com mais pontos.
+A street game for teams, each team with a phone, in Monte Gordo (Algarve, Portugal).
+Teams race to real **territories** (the Casino, beaches, the pine forest, restaurants, tennis courts, the campsite…),
+complete a challenge on site, send a **photo or video as proof** and conquer the territory. The team with the most points wins.
 
-▶ **Experimentar:** https://diogoguedes0305.github.io/jogo-monte-gordo/
+▶ **Try it:** https://diogoguedes0305.github.io/jogo-monte-gordo/
 
-<p align="center"><img src="docs/demo.gif" alt="Demo animada: equipas, desafio, conquista com confetis, placar e mapa, cartas e fim de jogo" width="720"></p>
-<p align="center"><sub>🎬 Demo animada · da criação das equipas ao vencedor</sub></p>
+<p align="center"><img src="docs/demo.gif" alt="Animated demo: teams, challenge, conquest with confetti, scoreboard and map, cards and game over" width="720"></p>
+<p align="center"><sub>🎬 Animated demo · from creating teams to the winner</sub></p>
 
-![Mapa de Monte Gordo](MonteGordo.png)
+> The game itself is in Portuguese.
 
-## Como se joga
+![Map of Monte Gordo](MonteGordo.png)
 
-1. **Lobby → Novo Jogo**: cria as equipas (nome, cor e foto) e escolhe em cada telemóvel qual é a sua equipa. Depois carrega em **▶ Jogar**.
-2. **Sala de espera**: cada equipa carrega em "Estou pronto". O jogo começa quando estão todas prontas.
-3. **No jogo**: vai a um território, abre-o no mapa, cumpre o desafio e envia a prova. O território passa a ser teu
-   e vale pontos até alguém to roubar.
-4. Cada conquista dá **cartas**, e pode-se ter até 3 na mão:
-   - **Vantagens**: Escudo 🛡️, Carta Extra 🎟️, Espião 🕵️, Corrida 👟, Limpeza 🧽, Bónus 💰
-   - **Ataques**: Assalto ⚔️, Roubo de Carta 🥷, Congelar ❄️, Castigo Físico 🏃, Maldição da Direita ↪️, Lentidão 🐌
-5. **Desafios Relâmpago** ⚡: aparecem de surpresa e a primeira equipa a enviar a prova ganha.
-6. **Fim do jogo**: uma equipa propõe terminar e aparecem o pódio, os pontos bónus secretos e os confetes.
+## How to play
 
-Em **Gestão** podes mudar o nome do jogo, o mapa, os territórios (pontos, ícone e posição), os desafios,
-as cartas do baralho e os Desafios Relâmpago. Também podes guardar **áreas** para jogar noutra terra.
+1. **Lobby → Novo Jogo**: create the teams (name, colour and photo) and choose on each phone which team it plays for. Then tap **▶ Jogar**.
+2. **Waiting room**: each team taps "Estou pronto" (I'm ready). The game starts when every team is ready.
+3. **In the game**: go to a territory, open it on the map, complete the challenge and send the proof. The territory
+   becomes yours and is worth points until someone steals it.
+4. Every conquest gives you **cards**, up to 3 in your hand:
+   - **Advantages**: Shield 🛡️, Extra Card 🎟️, Spy 🕵️, Race 👟, Clean-up 🧽, Bonus 💰
+   - **Attacks**: Assault ⚔️, Card Theft 🥷, Freeze ❄️, Physical Punishment 🏃, Right-Turn Curse ↪️, Slowness 🐌
+5. **Lightning Challenges** ⚡: they pop up by surprise and the first team to send the proof wins.
+6. **End of the game**: one team proposes to finish, and the podium, the secret bonus points and the confetti appear.
 
-## A versão de demonstração
+In **Gestão** (management) you can change the game name, the map, the territories (points, icon and position), the challenges,
+the cards in the deck and the Lightning Challenges. You can also save **areas** to play in another town.
 
-O link de cima abre a versão de demonstração, em `jogo/`:
-- Cada grupo joga numa **sala** só sua: o link ganha `?sala=XXXXX`, e é esse o link que se manda às outras equipas.
-- Uma sala nova começa com os territórios e desafios de Monte Gordo.
-- Não tem notificações push.
+## The demo version
 
-## Tecnologia
+The link above opens the demo version, in `jogo/`:
+- Each group plays in its own **room**: the link gets `?sala=XXXXX`, and that's the link you send to the other teams.
+- A new room starts with the Monte Gordo territories and challenges.
+- It has no push notifications.
 
-- **Um único ficheiro** (`firebase/public/index.html`): HTML, CSS e JavaScript, sem build nem dependências.
-- **Firebase Realtime Database** para o estado do jogo em tempo real, e **Firebase Hosting** para o alojamento.
-- **Cloudinary** para as fotos e vídeos de prova (upload direto do browser, com preset unsigned).
-- **Notificações push** por Firebase Cloud Messaging, enviadas por um **Cloudflare Worker** (`cloudflare-worker/`).
-  A credencial é um secret do Worker e nunca entra no código.
-- `apps-script/` é a primeira versão do jogo, feita em Google Sheets e Apps Script. Fica para referência.
-- `card-mockups/` e `regras-mockups/` são os protótipos das cartas e das regras.
+## Technology
 
-### Alojar o teu próprio jogo
+- **A single file** (`firebase/public/index.html`): HTML, CSS and JavaScript, no build step and no dependencies.
+- **Firebase Realtime Database** for the live game state, and **Firebase Hosting** for hosting.
+- **Cloudinary** for the proof photos and videos (direct upload from the browser, with an unsigned preset).
+- **Push notifications** with Firebase Cloud Messaging, sent by a **Cloudflare Worker** (`cloudflare-worker/`).
+  The credential is a Worker secret and never goes into the code.
+- `apps-script/` is the first version of the game, built with Google Sheets and Apps Script. Kept for reference.
+- `card-mockups/` and `regras-mockups/` are the prototypes for the cards and the rules.
 
-1. Cria um projeto no Firebase com Realtime Database e Hosting.
-2. Em `firebase/public/index.html`, troca `firebaseConfig` pela configuração do teu projeto, e
-   `CLOUDINARY_CLOUD_NAME`/`CLOUDINARY_UPLOAD_PRESET` pelos da tua conta Cloudinary.
-3. Importa `firebase/seed.json` para a base de dados (são os territórios iniciais).
-4. Dentro de `firebase/`, corre `firebase deploy`.
-5. As notificações push são opcionais: gera a chave VAPID (`FCM_VAPID_KEY`), publica o Worker com `npx wrangler deploy`
-   e define o secret `FIREBASE_SERVICE_ACCOUNT_JSON`.
+### Host your own game
 
-> ⚠️ O `database.rules.json` deixa a base de dados aberta para leitura e escrita, para ser simples entre amigos.
-> Para um evento público, junta autenticação e regras mais apertadas.
+1. Create a Firebase project with Realtime Database and Hosting.
+2. In `firebase/public/index.html`, replace `firebaseConfig` with your project's config, and
+   `CLOUDINARY_CLOUD_NAME`/`CLOUDINARY_UPLOAD_PRESET` with your Cloudinary account's.
+3. Import `firebase/seed.json` into the database (the initial territories).
+4. Inside `firebase/`, run `firebase deploy`.
+5. Push notifications are optional: generate the VAPID key (`FCM_VAPID_KEY`), publish the Worker with `npx wrangler deploy`
+   and set the `FIREBASE_SERVICE_ACCOUNT_JSON` secret.
+
+> ⚠️ `database.rules.json` leaves the database open for reading and writing, to keep things simple among friends.
+> For a public event, add authentication and tighter rules.
 
 ---
-Feito por Diogo Guedes, com a ajuda do Claude.
+Made by Diogo Guedes, with the help of Claude.
