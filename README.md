@@ -6,6 +6,9 @@ um desafio no local, enviam uma **prova em foto ou vídeo** e conquistam o terri
 
 ▶ **Experimentar:** https://diogoguedes0305.github.io/jogo-monte-gordo/
 
+<p align="center"><img src="docs/demo.gif" alt="Demo animada: equipas, desafio, conquista com confetis, placar e mapa, cartas e fim de jogo" width="720"></p>
+<p align="center"><sub>🎬 Demo animada · da criação das equipas ao vencedor</sub></p>
+
 ![Mapa de Monte Gordo](MonteGordo.png)
 
 ## Como se joga
